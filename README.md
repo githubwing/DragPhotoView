@@ -7,8 +7,9 @@ A Draggable PhotoView Like Wechat，高仿微信可拖拽返回PhotoView
 
 ### Based on [PhotoView](https://github.com/chrisbanes/PhotoView)
 
-> 
 ## Features
+- Drag to scale image and finish activity
+> 
 - Out of the box zooming, using multi-touch and double-tap.
 - Scrolling, with smooth scrolling fling.
 - Works perfectly when used in a scrolling parent (such as ViewPager).
@@ -40,6 +41,13 @@ allprojects {
     
 ```
 
+```java
+
+
+	// Any implementation of ImageView can be used!
+	DragPhotoView photoView = (DragPhotoView)findViewById(R.id.photoView);
+	photoView.setImageResource(R.drawable.ram);
+```
 
 # License
 
