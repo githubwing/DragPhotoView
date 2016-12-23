@@ -74,14 +74,11 @@ public class DragPhotoView extends PhotoView {
     public boolean dispatchTouchEvent(MotionEvent event) {
 
 
-        if(isAnimate){
-            return true;
-        }
-
         //only scale == 1 can drag
 
 
         if (getScale() == 1) {
+
             switch (event.getAction()) {
                 case MotionEvent.ACTION_DOWN:
                     onActionDown(event);
@@ -95,7 +92,7 @@ public class DragPhotoView extends PhotoView {
                     canFinish = false;
 
                     //single finger drag  down
-                    if (mTranslateY >= 0 && event.getPointerCount()==1) {
+                    if (mTranslateY >= 0 && event.getPointerCount() == 1) {
                         onActionMove(event);
                         return true;
                     }
