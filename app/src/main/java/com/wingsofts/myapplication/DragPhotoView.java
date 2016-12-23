@@ -88,8 +88,6 @@ public class DragPhotoView extends PhotoView {
 
                     break;
                 case MotionEvent.ACTION_MOVE:
-                    //if no move , flag canFinish false
-                    canFinish = false;
 
                     //single finger drag  down
                     if (mTranslateY >= 0 && event.getPointerCount() == 1) {
@@ -105,7 +103,7 @@ public class DragPhotoView extends PhotoView {
                     postDelayed(new Runnable() {
                         @Override
                         public void run() {
-                            if (mTranslateY == 0 && canFinish) {
+                            if (mTranslateX == 0&&mTranslateY == 0 && canFinish) {
                                 if (getContext() instanceof Activity) {
                                     ((Activity) getContext()).finish();
                                 }
