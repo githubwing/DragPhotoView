@@ -9,12 +9,13 @@ A Draggable PhotoView Like Wechat，高仿微信可拖拽返回PhotoView
 
 ## Features
 - Drag to scale image and finish activity
-> 
-- Out of the box zooming, using multi-touch and double-tap.
-- Scrolling, with smooth scrolling fling.
-- Works perfectly when used in a scrolling parent (such as ViewPager).
-- Allows the application to be notified when the displayed Matrix has changed. Useful for when you need to update your UI based on the current zoom/scroll position.
-- Allows the application to be notified when the user taps on the Photo.
+
+
+>- Out of the box zooming, using multi-touch and double-tap.
+>- Scrolling, with smooth scrolling fling.
+>- Works perfectly when used in a scrolling parent (such as ViewPager).
+>- Allows the application to be notified when the displayed Matrix has changed. Useful for when you need to update your UI based on the >current zoom/scroll position.
+>- Allows the application to be notified when the user taps on the Photo.
 
 ![image](https://github.com/githubwing/DragPhotoView/raw/master/img/img.gif)
 
