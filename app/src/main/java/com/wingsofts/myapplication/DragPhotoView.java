@@ -72,11 +72,11 @@ public class DragPhotoView extends PhotoView {
 
     @Override
     public boolean dispatchTouchEvent(MotionEvent event) {
+        Log.e("wing","dispatch");
 
 
+getParent().requestDisallowInterceptTouchEvent(true);
         //only scale == 1 can drag
-
-
         if (getScale() == 1) {
 
             switch (event.getAction()) {
@@ -88,11 +88,12 @@ public class DragPhotoView extends PhotoView {
 
                     break;
                 case MotionEvent.ACTION_MOVE:
-                    //if no move , flag canFinish false
-                    canFinish = false;
 
+                    if(mTranslateY == 0&&mTranslateX!=0){
+                        return false;
+                    }
                     //single finger drag  down
-                    if (mTranslateY >= 0 && event.getPointerCount() == 1) {
+                    if (mTranslateY > 0 && event.getPointerCount() == 1) {
                         onActionMove(event);
                         return true;
                     }

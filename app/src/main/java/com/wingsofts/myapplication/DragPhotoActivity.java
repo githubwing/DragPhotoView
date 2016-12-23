@@ -27,15 +27,56 @@ public class DragPhotoActivity extends AppCompatActivity {
 
     private ViewPager mViewPager;
     private List<String> mList;
-    private PhotoView[] mPhotoViews;
+    private DragPhotoView[] mPhotoViews;
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
 
 
         setContentView(R.layout.activity_drag_photo);
-        mPhotoView = (PhotoView) findViewById(R.id.imageView);
-        mPhotoView.setImageResource(R.drawable.leimu);
+        mViewPager = (ViewPager) findViewById(R.id.viewpager);
+
+        mList = new ArrayList<>();
+        mList.add("aaa");
+
+        mList.add("aaa");
+
+        mList.add("aaa");
+
+        mPhotoViews = new DragPhotoView[mList.size()];
+
+        for(int i = 0;i<mPhotoViews.length;i++){
+            mPhotoViews[i] = new DragPhotoView(this);
+            mPhotoViews[i].setImageResource(R.drawable.leimu);
+        }
+
+        mViewPager.setAdapter(new PagerAdapter() {
+            @Override
+            public int getCount() {
+                return mList.size();
+            }
+
+            @Override
+            public Object instantiateItem(ViewGroup container, int position) {
+                container.addView(mPhotoViews[position]);
+                return mPhotoViews[position];
+            }
+
+            @Override
+            public void destroyItem(ViewGroup container, int position, Object object) {
+                container.removeView(mPhotoViews[position]);
+            }
+
+            @Override
+            public boolean isViewFromObject(View view, Object object) {
+                return view == object;
+            }
+        });
+
+
+
+//        mPhotoView = (PhotoView) findViewById(R.id.imageView);
+//        mPhotoView.setImageResource(R.drawable.leimu);
 
 
 
