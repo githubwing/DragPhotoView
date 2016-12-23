@@ -37,7 +37,7 @@ allprojects {
     
 //module project
     	dependencies {
-	        compile 'com.github.githubwing:DragPhotoView:1.0.0'
+	        compile 'com.github.githubwing:DragPhotoView:1.0.1'
 	}
     
 ```
