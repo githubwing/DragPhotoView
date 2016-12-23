@@ -1,4 +1,4 @@
-package com.wingsofts.myapplication;
+package com.wingsofts.dragphotoview;
 
 import android.animation.Animator;
 import android.animation.ValueAnimator;

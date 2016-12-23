@@ -8,15 +8,12 @@ import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.view.View;
 import android.view.ViewGroup;
-import android.view.ViewTreeObserver;
-import android.view.Window;
-import android.view.WindowManager;
 import android.widget.ImageView;
 
+import com.wingsofts.dragphotoview.DragPhotoView;
 import java.util.ArrayList;
 import java.util.List;
 
-import uk.co.senab.photoview.PhotoView;
 
 public class DragPhotoActivity extends AppCompatActivity {
   private ViewPager mViewPager;
