@@ -5,17 +5,27 @@
 A Draggable PhotoView Like Wechat，高仿微信可拖拽返回PhotoView
 
 
-基于 [PhotoView](https://github.com/chrisbanes/PhotoView)
+### Based on [PhotoView](https://github.com/chrisbanes/PhotoView)
 
+> 
+## Features
+- Out of the box zooming, using multi-touch and double-tap.
+- Scrolling, with smooth scrolling fling.
+- Works perfectly when used in a scrolling parent (such as ViewPager).
+- Allows the application to be notified when the displayed Matrix has changed. Useful for when you need to update your UI based on the current zoom/scroll position.
+- Allows the application to be notified when the user taps on the Photo.
 
 ![image](https://github.com/githubwing/DragPhotoView/raw/master/img/img.gif)
 
 
 
-# 使用
-配置你的gradle
+# Usage
+
+add this on you  `build.gradle`
 
 ```gradle
+
+//root project
 allprojects {
 		repositories {
 			...
@@ -23,7 +33,7 @@ allprojects {
 		}
 	}
     
-    
+//module project
     	dependencies {
 	        compile 'com.github.githubwing:DragPhotoView:1.0.0'
 	}
