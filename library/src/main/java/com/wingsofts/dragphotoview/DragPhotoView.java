@@ -109,24 +109,33 @@ public class DragPhotoView extends PhotoView {
                         }
                         return true;
                     }
+
+
+                    //防止下拉的时候双手缩放
+                    if (mTranslateY >= 0 && mScale < 0.95) {
+                        return true;
+                    }
                     break;
 
                 case MotionEvent.ACTION_UP:
-                    onActionUp(event);
-                    isTouchEvent = false;
-                    //judge finish or not
-                    postDelayed(new Runnable() {
-                        @Override
-                        public void run() {
-                            if (mTranslateX == 0 && mTranslateY == 0 && canFinish) {
+                    //防止下拉的时候双手缩放
+                    if (event.getPointerCount() == 1) {
+                        onActionUp(event);
+                        isTouchEvent = false;
+                        //judge finish or not
+                        postDelayed(new Runnable() {
+                            @Override
+                            public void run() {
+                                if (mTranslateX == 0 && mTranslateY == 0 && canFinish) {
 
-                                if (mTapListener != null) {
-                                    mTapListener.onTap(DragPhotoView.this);
+                                    if (mTapListener != null) {
+                                        mTapListener.onTap(DragPhotoView.this);
+                                    }
                                 }
+                                canFinish = false;
                             }
-                            canFinish = false;
-                        }
-                    }, 300);
+                        }, 300);
+                    }
             }
         }
 
@@ -136,9 +145,9 @@ public class DragPhotoView extends PhotoView {
     private void onActionUp(MotionEvent event) {
 
         if (mTranslateY > MAX_TRANSLATE_Y) {
-            if(mExitListener != null){
-                mExitListener.onExit(this,mTranslateX,mTranslateY,mWidth,mHeight);
-            }else {
+            if (mExitListener != null) {
+                mExitListener.onExit(this, mTranslateX, mTranslateY, mWidth, mHeight);
+            } else {
                 throw new RuntimeException("DragPhotoView: onExitLister can't be null ! call setOnExitListener() ");
             }
         } else {
@@ -276,20 +285,21 @@ public class DragPhotoView extends PhotoView {
         mTapListener = listener;
     }
 
-    public void setOnExitListener(OnExitListener listener){
+    public void setOnExitListener(OnExitListener listener) {
         mExitListener = listener;
     }
+
     public interface OnTapListener {
         void onTap(DragPhotoView view);
     }
 
-    public interface OnExitListener{
-        void onExit(DragPhotoView view,float translateX,float translateY,float w,float h);
+    public interface OnExitListener {
+        void onExit(DragPhotoView view, float translateX, float translateY, float w, float h);
     }
 
-    public void finishAnimationCallBack(){
-        mTranslateX = -mWidth/2 + mWidth*mScale/2;
-        mTranslateY = -mHeight/2 + mHeight*mScale/2;
+    public void finishAnimationCallBack() {
+        mTranslateX = -mWidth / 2 + mWidth * mScale / 2;
+        mTranslateY = -mHeight / 2 + mHeight * mScale / 2;
         invalidate();
     }
 }
