@@ -48,6 +48,10 @@ then use DragPhotoView as a ImageView
 	// Any implementation of ImageView can be used!
 	DragPhotoView photoView = (DragPhotoView)findViewById(R.id.photoView);
 	photoView.setImageResource(R.drawable.ram);
+	//must set a onExitListener, it will work when exit
+	photoView.setOnExitListener()
+	
+	photoView.setOnTapListener()
 ```
 
 ## Tips
