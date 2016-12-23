@@ -7,22 +7,15 @@ import android.view.View;
 import android.widget.ImageView;
 
 public class MainActivity extends AppCompatActivity {
-    private ImageView mImageView;
-    @Override
-    protected void onCreate(Bundle savedInstanceState) {
-        super.onCreate(savedInstanceState);
-        setContentView(R.layout.activity_main);
-        mImageView = (ImageView) findViewById(R.id.imageView);
-    }
+  private ImageView mImageView;
 
-    public void onClick(View view){
-        DragPhotoActivity.startActivity(this,mImageView);
-    }
+  @Override protected void onCreate(Bundle savedInstanceState) {
+    super.onCreate(savedInstanceState);
+    setContentView(R.layout.activity_main);
+    mImageView = (ImageView) findViewById(R.id.imageView);
+  }
 
-    @Override
-    public void onWindowFocusChanged(boolean hasFocus) {
-
-
-        super.onWindowFocusChanged(hasFocus);
-    }
+  public void onClick(View view) {
+    DragPhotoActivity.startActivity(this, mImageView);
+  }
 }
