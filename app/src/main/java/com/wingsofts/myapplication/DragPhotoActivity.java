@@ -62,8 +62,8 @@ public class DragPhotoActivity extends AppCompatActivity {
 
             mPhotoViews[i].setOnExitListener(new DragPhotoView.OnExitListener() {
                 @Override
-                public void onExit(DragPhotoView view,float x,float y,float w,float h) {
-                    performExitAnimation(view,x,y,w,h);
+                public void onExit(DragPhotoView view, float x, float y, float w, float h) {
+                    performExitAnimation(view, x, y, w, h);
                 }
             });
         }
@@ -143,25 +143,24 @@ public class DragPhotoActivity extends AppCompatActivity {
      * <p>
      * Code  under is shared transitions in all android versions implementation
      */
-    private void performExitAnimation(final DragPhotoView view, float x,float y,float w, float h) {
+    private void performExitAnimation(final DragPhotoView view, float x, float y, float w, float h) {
 
 
         view.finishAnimationCallBack();
-        float viewX = mTargetWidth/2+ x-mTargetWidth*mScaleX/2;
-        float viewY = mTargetHeight/2+y-mTargetHeight*mScaleY/2;
+        float viewX = mTargetWidth / 2 + x - mTargetWidth * mScaleX / 2;
+        float viewY = mTargetHeight / 2 + y - mTargetHeight * mScaleY / 2;
         view.setX(viewX);
         view.setY(viewY);
 
 
-
-        float centerX = viewX + mOriginWidth/2;
-        float centerY = viewY + mOriginHeight/2;
+        float centerX = viewX + mOriginWidth / 2;
+        float centerY = viewY + mOriginHeight / 2;
 
         final float translateX = mOriginCenterX - centerX;
 
         float translateY = mOriginCenterY - centerY;
 
-        ValueAnimator translateXAnimator = ValueAnimator.ofFloat(view.getX(),view.getX()+translateX);
+        ValueAnimator translateXAnimator = ValueAnimator.ofFloat(view.getX(), view.getX() + translateX);
         translateXAnimator.addUpdateListener(new ValueAnimator.AnimatorUpdateListener() {
             @Override
             public void onAnimationUpdate(ValueAnimator valueAnimator) {
@@ -171,7 +170,7 @@ public class DragPhotoActivity extends AppCompatActivity {
         });
         translateXAnimator.setDuration(300);
         translateXAnimator.start();
-        ValueAnimator translateYAnimator = ValueAnimator.ofFloat(view.getY(),view.getY()+translateY);
+        ValueAnimator translateYAnimator = ValueAnimator.ofFloat(view.getY(), view.getY() + translateY);
         translateYAnimator.addUpdateListener(new ValueAnimator.AnimatorUpdateListener() {
             @Override
             public void onAnimationUpdate(ValueAnimator valueAnimator) {
@@ -188,7 +187,7 @@ public class DragPhotoActivity extends AppCompatActivity {
             public void onAnimationEnd(Animator animator) {
                 animator.removeAllListeners();
                 finish();
-                overridePendingTransition(0,0);
+                overridePendingTransition(0, 0);
             }
 
             @Override
