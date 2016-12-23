@@ -1,5 +1,7 @@
 # DragPhotoView
 
+[![](https://jitpack.io/v/githubwing/DragPhotoView.svg)](https://jitpack.io/#githubwing/DragPhotoView)
+
 A Draggable PhotoView Like Wechat，高仿微信可拖拽返回PhotoView
 
 
@@ -10,6 +12,23 @@ A Draggable PhotoView Like Wechat，高仿微信可拖拽返回PhotoView
 
 
 
+# 使用
+配置你的gradle
+
+```gradle
+allprojects {
+		repositories {
+			...
+			maven { url 'https://jitpack.io' }
+		}
+	}
+    
+    
+    	dependencies {
+	        compile 'com.github.githubwing:DragPhotoView:1.0.0'
+	}
+    
+```
 
 
 # License
