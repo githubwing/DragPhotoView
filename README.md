@@ -60,15 +60,11 @@ Let your Activity theme `translucent`
 In `style.xml`
 ```xml
   <style name="translucent" parent="Theme.AppCompat.Light.NoActionBar">
-        <item name="android:windowBackground" >@color/translucent</item>
+        <item name="android:windowBackground" >@android:color/transparent</item>
         <item name="android:windowIsTranslucent">true</item>
     </style>
 ```
 
-In 'colors.xml'
-```
-    <color name="translucent">#00000000</color>
-```
 
 
 # License
