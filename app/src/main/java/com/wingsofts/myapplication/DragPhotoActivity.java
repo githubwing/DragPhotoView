@@ -9,6 +9,7 @@ import android.os.Bundle;
 import android.util.Log;
 import android.view.View;
 import android.view.ViewGroup;
+import android.view.ViewTreeObserver;
 
 import com.wingsofts.dragphotoview.DragPhotoView;
 
@@ -90,7 +91,48 @@ public class DragPhotoActivity extends AppCompatActivity {
             }
         });
 
+        mViewPager.getViewTreeObserver().addOnGlobalLayoutListener(new ViewTreeObserver.OnGlobalLayoutListener() {
+            @Override
+            public void onGlobalLayout() {
+                mViewPager.getViewTreeObserver().removeOnGlobalLayoutListener(this);
 
+                mOriginLeft = getIntent().getIntExtra("left", 0);
+                mOriginTop = getIntent().getIntExtra("top", 0);
+                mOriginHeight = getIntent().getIntExtra("height", 0);
+                mOriginWidth = getIntent().getIntExtra("width", 0);
+                mOriginCenterX = mOriginLeft + mOriginWidth / 2;
+                mOriginCenterY = mOriginTop + mOriginHeight / 2;
+
+                int[] location = new int[2];
+
+                final DragPhotoView photoView = mPhotoViews[0];
+                photoView.getLocationOnScreen(location);
+
+
+                mTargetHeight = (float) photoView.getHeight();
+                mTargetWidth = (float) photoView.getWidth();
+                mScaleX = (float) mOriginWidth / mTargetWidth;
+                mScaleY = (float) mOriginHeight / mTargetHeight;
+
+                float targetCenterX = location[0] + mTargetWidth / 2;
+                float targetCenterY = location[1] + mTargetHeight / 2;
+
+                mTranslationX = mOriginCenterX - targetCenterX;
+                mTranslationY = mOriginCenterY - targetCenterY;
+                photoView.setTranslationX(mTranslationX);
+                photoView.setTranslationY(mTranslationY);
+
+                photoView.setScaleX(mScaleX);
+                photoView.setScaleY(mScaleY);
+
+
+                performEnterAnimation();
+
+                for (int i = 0; i < mPhotoViews.length; i++) {
+                    mPhotoViews[i].setMinScale(mScaleX);
+                }
+            }
+        });
     }
 
 
@@ -236,48 +278,48 @@ public class DragPhotoActivity extends AppCompatActivity {
 
 
     }
-
-    @Override
-    public void onWindowFocusChanged(boolean hasFocus) {
-        super.onWindowFocusChanged(hasFocus);
-
-
-        mOriginLeft = getIntent().getIntExtra("left", 0);
-        mOriginTop = getIntent().getIntExtra("top", 0);
-        mOriginHeight = getIntent().getIntExtra("height", 0);
-        mOriginWidth = getIntent().getIntExtra("width", 0);
-        mOriginCenterX = mOriginLeft + mOriginWidth / 2;
-        mOriginCenterY = mOriginTop + mOriginHeight / 2;
-
-        int[] location = new int[2];
-
-        final DragPhotoView photoView = mPhotoViews[0];
-        photoView.getLocationOnScreen(location);
-
-
-        mTargetHeight = (float) photoView.getHeight();
-        mTargetWidth = (float) photoView.getWidth();
-        mScaleX = (float) mOriginWidth / mTargetWidth;
-        mScaleY = (float) mOriginHeight / mTargetHeight;
-
-        float targetCenterX = location[0] + mTargetWidth / 2;
-        float targetCenterY = location[1] + mTargetHeight / 2;
-
-        mTranslationX = mOriginCenterX - targetCenterX;
-        mTranslationY = mOriginCenterY - targetCenterY;
-        photoView.setTranslationX(mTranslationX);
-        photoView.setTranslationY(mTranslationY);
-
-        photoView.setScaleX(mScaleX);
-        photoView.setScaleY(mScaleY);
-
-
-        performEnterAnimation();
-
-        for (int i = 0; i < mPhotoViews.length; i++) {
-            mPhotoViews[i].setMinScale(mScaleX);
-        }
-    }
+//
+//    @Override
+//    public void onWindowFocusChanged(boolean hasFocus) {
+//        super.onWindowFocusChanged(hasFocus);
+//
+//
+//        mOriginLeft = getIntent().getIntExtra("left", 0);
+//        mOriginTop = getIntent().getIntExtra("top", 0);
+//        mOriginHeight = getIntent().getIntExtra("height", 0);
+//        mOriginWidth = getIntent().getIntExtra("width", 0);
+//        mOriginCenterX = mOriginLeft + mOriginWidth / 2;
+//        mOriginCenterY = mOriginTop + mOriginHeight / 2;
+//
+//        int[] location = new int[2];
+//
+//        final DragPhotoView photoView = mPhotoViews[0];
+//        photoView.getLocationOnScreen(location);
+//
+//
+//        mTargetHeight = (float) photoView.getHeight();
+//        mTargetWidth = (float) photoView.getWidth();
+//        mScaleX = (float) mOriginWidth / mTargetWidth;
+//        mScaleY = (float) mOriginHeight / mTargetHeight;
+//
+//        float targetCenterX = location[0] + mTargetWidth / 2;
+//        float targetCenterY = location[1] + mTargetHeight / 2;
+//
+//        mTranslationX = mOriginCenterX - targetCenterX;
+//        mTranslationY = mOriginCenterY - targetCenterY;
+//        photoView.setTranslationX(mTranslationX);
+//        photoView.setTranslationY(mTranslationY);
+//
+//        photoView.setScaleX(mScaleX);
+//        photoView.setScaleY(mScaleY);
+//
+//
+//        performEnterAnimation();
+//
+//        for (int i = 0; i < mPhotoViews.length; i++) {
+//            mPhotoViews[i].setMinScale(mScaleX);
+//        }
+//    }
 
 
     private void performEnterAnimation() {
