@@ -85,7 +85,6 @@ public class DragPhotoView extends PhotoView {
                     break;
                 case MotionEvent.ACTION_MOVE:
 
-
                     //in viewpager
                     if (mTranslateY == 0 && mTranslateX != 0) {
                         mScale = 1;
