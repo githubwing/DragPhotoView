@@ -1,5 +1,6 @@
 package com.wingsofts.myapplication;
 
+import android.content.Context;
 import android.content.Intent;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
@@ -16,6 +17,21 @@ public class MainActivity extends AppCompatActivity {
   }
 
   public void onClick(View view) {
-    DragPhotoActivity.startActivity(this, mImageView);
+    startPhotoActivity(this, (ImageView) view);
+  }
+
+
+  public  void startPhotoActivity(Context context, ImageView imageView) {
+    Intent intent = new Intent(context, DragPhotoActivity.class);
+    int location[] = new int[2];
+
+    imageView.getLocationOnScreen(location);
+    intent.putExtra("left", location[0]);
+    intent.putExtra("top", location[1]);
+    intent.putExtra("height", imageView.getHeight());
+    intent.putExtra("width", imageView.getWidth());
+
+    context.startActivity(intent);
+    overridePendingTransition(0,0);
   }
 }
