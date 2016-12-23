@@ -40,7 +40,8 @@ public class DragPhotoView extends PhotoView {
 
     //is event on PhotoView
     private boolean isTouchEvent = false;
-    private OnTapListener mListener;
+    private OnTapListener mTapListener;
+    private OnExitListener mExitListener;
 
     public DragPhotoView(Context context) {
         this(context, null);
@@ -119,8 +120,8 @@ public class DragPhotoView extends PhotoView {
                         public void run() {
                             if (mTranslateX == 0 && mTranslateY == 0 && canFinish) {
 
-                                if (mListener != null) {
-                                    mListener.onTap();
+                                if (mTapListener != null) {
+                                    mTapListener.onTap(DragPhotoView.this);
                                 }
                             }
                             canFinish = false;
@@ -135,9 +136,10 @@ public class DragPhotoView extends PhotoView {
     private void onActionUp(MotionEvent event) {
 
         if (mTranslateY > MAX_TRANSLATE_Y) {
-            if (getContext() instanceof Activity) {
-                ((Activity) getContext()).finish();
-                return;
+            if(mExitListener != null){
+                mExitListener.onExit(this,mTranslateX,mTranslateY,mWidth,mHeight);
+            }else {
+                throw new RuntimeException("DragPhotoView: onExitLister can't be null ! call setOnExitListener() ");
             }
         } else {
             performAnimation();
@@ -156,9 +158,9 @@ public class DragPhotoView extends PhotoView {
         }
 
         float percent = mTranslateY / MAX_TRANSLATE_Y;
-
         if (mScale >= mMinScale && mScale <= 1f) {
             mScale = 1 - percent;
+
             mAlpha = (int) (255 * (1 - percent));
             if (mAlpha > 255) {
                 mAlpha = 255;
@@ -267,14 +269,27 @@ public class DragPhotoView extends PhotoView {
     }
 
     public void setMinScale(float minScale) {
-        this.mMinScale = mMinScale;
+        mMinScale = minScale;
     }
 
     public void setOnTapListener(OnTapListener listener) {
-        mListener = listener;
+        mTapListener = listener;
     }
 
+    public void setOnExitListener(OnExitListener listener){
+        mExitListener = listener;
+    }
     public interface OnTapListener {
-        void onTap();
+        void onTap(DragPhotoView view);
+    }
+
+    public interface OnExitListener{
+        void onExit(DragPhotoView view,float translateX,float translateY,float w,float h);
+    }
+
+    public void finishAnimationCallBack(){
+        mTranslateX = -mWidth/2 + mWidth*mScale/2;
+        mTranslateY = -mHeight/2 + mHeight*mScale/2;
+        invalidate();
     }
 }

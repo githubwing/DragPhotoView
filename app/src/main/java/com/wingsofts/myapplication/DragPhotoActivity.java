@@ -6,6 +6,7 @@ import android.support.v4.view.PagerAdapter;
 import android.support.v4.view.ViewPager;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
+import android.util.Log;
 import android.view.View;
 import android.view.ViewGroup;
 
@@ -53,8 +54,15 @@ public class DragPhotoActivity extends AppCompatActivity {
             mPhotoViews[i].setImageResource(R.drawable.leimu);
             mPhotoViews[i].setOnTapListener(new DragPhotoView.OnTapListener() {
                 @Override
-                public void onTap() {
+                public void onTap(DragPhotoView view) {
                     finishWithAnimation();
+                }
+            });
+
+            mPhotoViews[i].setOnExitListener(new DragPhotoView.OnExitListener() {
+                @Override
+                public void onExit(DragPhotoView view,float x,float y,float w,float h) {
+                    performExitAnimation(view,x,y,w,h);
                 }
             });
         }
@@ -82,67 +90,53 @@ public class DragPhotoActivity extends AppCompatActivity {
             }
         });
 
+
     }
 
 
     /**
-     *
      * ===================================================================================
-     *
+     * <p>
      * 底下是低版本"共享元素"实现   不需要过分关心
-     *
+     * <p>
      * Code  under is shared transitions in all android versions implementation
-     *
-     *
-     *
-     *
      */
+    private void performExitAnimation(final DragPhotoView view, float x,float y,float w, float h) {
 
-    private void finishWithAnimation() {
 
-        final DragPhotoView photoView = mPhotoViews[0];
-        ValueAnimator translateXAnimator = ValueAnimator.ofFloat(0, mTranslationX);
+        view.finishAnimationCallBack();
+        float viewX = mTargetWidth/2+ x-mTargetWidth*mScaleX/2;
+        float viewY = mTargetHeight/2+y-mTargetHeight*mScaleY/2;
+        view.setX(viewX);
+        view.setY(viewY);
+
+
+
+        float centerX = viewX + mOriginWidth/2;
+        float centerY = viewY + mOriginHeight/2;
+
+        final float translateX = mOriginCenterX - centerX;
+
+        float translateY = mOriginCenterY - centerY;
+
+        ValueAnimator translateXAnimator = ValueAnimator.ofFloat(view.getX(),view.getX()+translateX);
         translateXAnimator.addUpdateListener(new ValueAnimator.AnimatorUpdateListener() {
             @Override
             public void onAnimationUpdate(ValueAnimator valueAnimator) {
-                photoView.setX((Float) valueAnimator.getAnimatedValue());
+                view.setX((Float) valueAnimator.getAnimatedValue());
+
             }
         });
         translateXAnimator.setDuration(300);
         translateXAnimator.start();
-
-
-        ValueAnimator translateYAnimator = ValueAnimator.ofFloat( 0,mTranslationY);
+        ValueAnimator translateYAnimator = ValueAnimator.ofFloat(view.getY(),view.getY()+translateY);
         translateYAnimator.addUpdateListener(new ValueAnimator.AnimatorUpdateListener() {
             @Override
             public void onAnimationUpdate(ValueAnimator valueAnimator) {
-                photoView.setY((Float) valueAnimator.getAnimatedValue());
+                view.setY((Float) valueAnimator.getAnimatedValue());
             }
         });
-        translateYAnimator.setDuration(300);
-        translateYAnimator.start();
-
-
-        ValueAnimator scaleYAnimator = ValueAnimator.ofFloat(1,mScaleY);
-        scaleYAnimator.addUpdateListener(new ValueAnimator.AnimatorUpdateListener() {
-            @Override
-            public void onAnimationUpdate(ValueAnimator valueAnimator) {
-                photoView.setScaleY((Float) valueAnimator.getAnimatedValue());
-            }
-        });
-        scaleYAnimator.setDuration(300);
-        scaleYAnimator.start();
-
-
-        ValueAnimator scaleXAnimator = ValueAnimator.ofFloat(1,mScaleX);
-        scaleXAnimator.addUpdateListener(new ValueAnimator.AnimatorUpdateListener() {
-            @Override
-            public void onAnimationUpdate(ValueAnimator valueAnimator) {
-                photoView.setScaleX((Float) valueAnimator.getAnimatedValue());
-            }
-        });
-
-        scaleXAnimator.addListener(new Animator.AnimatorListener() {
+        translateYAnimator.addListener(new Animator.AnimatorListener() {
             @Override
             public void onAnimationStart(Animator animator) {
 
@@ -165,9 +159,80 @@ public class DragPhotoActivity extends AppCompatActivity {
 
             }
         });
+        translateYAnimator.setDuration(300);
+        translateYAnimator.start();
+    }
+
+
+    private void finishWithAnimation() {
+
+        final DragPhotoView photoView = mPhotoViews[0];
+        ValueAnimator translateXAnimator = ValueAnimator.ofFloat(0, mTranslationX);
+        translateXAnimator.addUpdateListener(new ValueAnimator.AnimatorUpdateListener() {
+            @Override
+            public void onAnimationUpdate(ValueAnimator valueAnimator) {
+                photoView.setX((Float) valueAnimator.getAnimatedValue());
+            }
+        });
+        translateXAnimator.setDuration(300);
+        translateXAnimator.start();
+
+
+        ValueAnimator translateYAnimator = ValueAnimator.ofFloat(0, mTranslationY);
+        translateYAnimator.addUpdateListener(new ValueAnimator.AnimatorUpdateListener() {
+            @Override
+            public void onAnimationUpdate(ValueAnimator valueAnimator) {
+                photoView.setY((Float) valueAnimator.getAnimatedValue());
+            }
+        });
+        translateYAnimator.setDuration(300);
+        translateYAnimator.start();
+
+
+        ValueAnimator scaleYAnimator = ValueAnimator.ofFloat(1, mScaleY);
+        scaleYAnimator.addUpdateListener(new ValueAnimator.AnimatorUpdateListener() {
+            @Override
+            public void onAnimationUpdate(ValueAnimator valueAnimator) {
+                photoView.setScaleY((Float) valueAnimator.getAnimatedValue());
+            }
+        });
+        scaleYAnimator.setDuration(300);
+        scaleYAnimator.start();
+
+
+        ValueAnimator scaleXAnimator = ValueAnimator.ofFloat(1, mScaleX);
+        scaleXAnimator.addUpdateListener(new ValueAnimator.AnimatorUpdateListener() {
+            @Override
+            public void onAnimationUpdate(ValueAnimator valueAnimator) {
+                photoView.setScaleX((Float) valueAnimator.getAnimatedValue());
+            }
+        });
+
+        scaleXAnimator.addListener(new Animator.AnimatorListener() {
+            @Override
+            public void onAnimationStart(Animator animator) {
+
+            }
+
+            @Override
+            public void onAnimationEnd(Animator animator) {
+                animator.removeAllListeners();
+                finish();
+                overridePendingTransition(0, 0);
+            }
+
+            @Override
+            public void onAnimationCancel(Animator animator) {
+
+            }
+
+            @Override
+            public void onAnimationRepeat(Animator animator) {
+
+            }
+        });
         scaleXAnimator.setDuration(300);
         scaleXAnimator.start();
-
 
 
     }
@@ -175,6 +240,8 @@ public class DragPhotoActivity extends AppCompatActivity {
     @Override
     public void onWindowFocusChanged(boolean hasFocus) {
         super.onWindowFocusChanged(hasFocus);
+
+
         mOriginLeft = getIntent().getIntExtra("left", 0);
         mOriginTop = getIntent().getIntExtra("top", 0);
         mOriginHeight = getIntent().getIntExtra("height", 0);
@@ -207,6 +274,9 @@ public class DragPhotoActivity extends AppCompatActivity {
 
         performEnterAnimation();
 
+        for (int i = 0; i < mPhotoViews.length; i++) {
+            mPhotoViews[i].setMinScale(mScaleX);
+        }
     }
 
 
@@ -254,7 +324,6 @@ public class DragPhotoActivity extends AppCompatActivity {
         });
         scaleXAnimator.setDuration(300);
         scaleXAnimator.start();
-
 
 
     }
