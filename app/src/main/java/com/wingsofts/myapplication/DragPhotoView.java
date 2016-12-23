@@ -72,10 +72,6 @@ public class DragPhotoView extends PhotoView {
 
     @Override
     public boolean dispatchTouchEvent(MotionEvent event) {
-        Log.e("wing","dispatch");
-
-
-getParent().requestDisallowInterceptTouchEvent(true);
         //only scale == 1 can drag
         if (getScale() == 1) {
 
@@ -89,11 +85,15 @@ getParent().requestDisallowInterceptTouchEvent(true);
                     break;
                 case MotionEvent.ACTION_MOVE:
 
-                    if(mTranslateY == 0&&mTranslateX!=0){
-                        return false;
+
+                    //in viewpager
+                    if (mTranslateY == 0 && mTranslateX != 0) {
+                        mScale = 1;
+                        return super.dispatchTouchEvent(event);
                     }
+
                     //single finger drag  down
-                    if (mTranslateY > 0 && event.getPointerCount() == 1) {
+                    if (mTranslateY >= 0 && event.getPointerCount() == 1) {
                         onActionMove(event);
                         return true;
                     }
@@ -106,7 +106,7 @@ getParent().requestDisallowInterceptTouchEvent(true);
                     postDelayed(new Runnable() {
                         @Override
                         public void run() {
-                            if (mTranslateY == 0 && canFinish) {
+                            if (mTranslateX == 0 && mTranslateY == 0 && canFinish) {
                                 if (getContext() instanceof Activity) {
                                     ((Activity) getContext()).finish();
                                 }

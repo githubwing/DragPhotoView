@@ -37,11 +37,10 @@ public class DragPhotoActivity extends AppCompatActivity {
         mViewPager = (ViewPager) findViewById(R.id.viewpager);
 
         mList = new ArrayList<>();
-        mList.add("aaa");
 
-        mList.add("aaa");
-
-        mList.add("aaa");
+        mList.add("path");
+        mList.add("path");
+        mList.add("path");
 
         mPhotoViews = new DragPhotoView[mList.size()];
 
@@ -73,23 +72,10 @@ public class DragPhotoActivity extends AppCompatActivity {
             }
         });
 
-
-
-//        mPhotoView = (PhotoView) findViewById(R.id.imageView);
-//        mPhotoView.setImageResource(R.drawable.leimu);
-
-
-
     }
 
 
     public static void startActivity(Context context, ImageView imageView) {
-        mPerImageViewWidth = imageView.getWidth();
-        mPerImageViewHeight = imageView.getHeight();
-        int[] location = new int[2];
-        imageView.getLocationOnScreen(location);
-        mPerImageViewX = location[0];
-        mPerImageViewY = location[1];
         Intent intent = new Intent(context, DragPhotoActivity.class);
         context.startActivity(intent);
 
