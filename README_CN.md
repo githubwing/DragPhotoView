@@ -49,10 +49,10 @@ allprojects {
 ```java
 
 
-	// Any implementation of ImageView can be used!
+	// 所有ImageView用法都可以	
 	DragPhotoView photoView = (DragPhotoView)findViewById(R.id.photoView);
 	photoView.setImageResource(R.drawable.ram);
-	//must set a onExitListener, it will work when exit
+	//必须添加一个onExitListener,在拖拽到底部时触发.	
 	photoView.setOnExitListener()
 	
 	photoView.setOnTapListener()
