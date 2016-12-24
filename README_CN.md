@@ -12,6 +12,7 @@
 ## 特性
 - 拖拽缩放图片,并且结束Activity
 - 其他PhotoView所有特性如下:
+
 >- Out of the box zooming, using multi-touch and double-tap.
 >- Scrolling, with smooth scrolling fling.
 >- Works perfectly when used in a scrolling parent (such as ViewPager).
