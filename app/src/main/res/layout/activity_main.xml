@@ -3,6 +3,7 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
+    android:fitsSystemWindows="true"
     >
   <LinearLayout
       android:id="@+id/activity_main"
@@ -56,13 +57,12 @@
 
     <ImageView
         android:id="@+id/imageView"
-        android:layout_width="100dp"
-        android:layout_height="150dp"
+        android:layout_width="90dp"
+        android:layout_height="160dp"
         android:layout_marginLeft="60dp"
         android:layout_marginTop="5dp"
         android:onClick="onClick"
-        android:scaleType="centerCrop"
-        android:src="@drawable/leimu"
+        android:src="@drawable/wugeng"
         />
     <TextView
         android:layout_width="wrap_content"
@@ -114,13 +114,12 @@
     </LinearLayout>
 
     <ImageView
-        android:layout_width="100dp"
-        android:layout_height="150dp"
+        android:layout_width="90dp"
+        android:layout_height="160dp"
         android:layout_marginLeft="60dp"
         android:layout_marginTop="5dp"
         android:onClick="onClick"
-        android:scaleType="centerCrop"
-        android:src="@drawable/leimu"
+        android:src="@drawable/wugeng"
         />
     <TextView
         android:layout_width="wrap_content"
@@ -173,13 +172,12 @@
     </LinearLayout>
 
     <ImageView
-        android:layout_width="100dp"
-        android:layout_height="150dp"
+        android:layout_width="90dp"
+        android:layout_height="160dp"
         android:layout_marginLeft="60dp"
         android:layout_marginTop="5dp"
         android:onClick="onClick"
-        android:scaleType="centerCrop"
-        android:src="@drawable/leimu"
+        android:src="@drawable/wugeng"
         />
     <TextView
         android:layout_width="wrap_content"
