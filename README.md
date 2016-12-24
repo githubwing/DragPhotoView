@@ -1,4 +1,5 @@
-# DragPhotoView
+# DragPhotoView [中文说明](https://github.com/githubwing/DragPhotoView/blob/master/README_CN.md)
+
 
 [![](https://jitpack.io/v/githubwing/DragPhotoView.svg)](https://jitpack.io/#githubwing/DragPhotoView)
 
