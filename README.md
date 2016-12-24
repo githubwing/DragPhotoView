@@ -7,6 +7,8 @@ A Draggable PhotoView Like Wechat，高仿微信可拖拽返回PhotoView
 
 ### Based on [PhotoView](https://github.com/chrisbanes/PhotoView)
 
+##[DownLoad APK](https://github.com/githubwing/DragPhotoView/raw/master/app-debug.apk)
+
 ## Features
 - Drag to scale image and finish activity
 
