@@ -60,7 +60,7 @@ public class DragPhotoView extends PhotoView {
     @Override
     protected void onDraw(Canvas canvas) {
         mPaint.setAlpha(mAlpha);
-        canvas.drawRect(0, 0, 2000, 2000, mPaint);
+        canvas.drawRect(0, 0, 2000, 3000, mPaint);
         canvas.translate(mTranslateX, mTranslateY);
         canvas.scale(mScale, mScale, mWidth / 2, mHeight / 2);
         super.onDraw(canvas);
