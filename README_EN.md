@@ -1,17 +1,18 @@
-# DragPhotoView
+# DragPhotoView [中文说明](https://github.com/githubwing/DragPhotoView/blob/master/README.md)
+
 
 [![](https://jitpack.io/v/githubwing/DragPhotoView.svg)](https://jitpack.io/#githubwing/DragPhotoView)
 
-高仿微信可拖拽返回PhotoView
+A Draggable PhotoView Like Wechat，高仿微信可拖拽返回PhotoView
 
 
-### 基于 [PhotoView](https://github.com/chrisbanes/PhotoView)
+### Based on [PhotoView](https://github.com/chrisbanes/PhotoView)
 
-##[下载APK体验](https://github.com/githubwing/DragPhotoView/raw/master/app-debug.apk)
+##[DownLoad APK](https://github.com/githubwing/DragPhotoView/raw/master/app-debug.apk)
 
-## 特性
-- 拖拽缩放图片,并且结束Activity
-- 其他PhotoView所有特性如下:
+## Features
+- Drag to scale image and finish activity
+
 
 >- Out of the box zooming, using multi-touch and double-tap.
 >- Scrolling, with smooth scrolling fling.
@@ -23,9 +24,9 @@
 
 
 
-# 使用
+# Usage
 
-修改你的  `build.gradle`文件
+add this on you  `build.gradle`
 
 ```gradle
 
@@ -43,35 +44,32 @@ allprojects {
 	}
     
 ```
-
-使用法放和普通的ImageView一毛一样
-
+then use DragPhotoView as a ImageView
 ```java
 
 
-	// 所有ImageView用法都可以	
+	// Any implementation of ImageView can be used!
 	DragPhotoView photoView = (DragPhotoView)findViewById(R.id.photoView);
 	photoView.setImageResource(R.drawable.ram);
-	//必须添加一个onExitListener,在拖拽到底部时触发.	
+	//must set a onExitListener, it will work when exit
 	photoView.setOnExitListener()
 	
 	photoView.setOnTapListener()
 ```
 
-## 小贴士
+## Tips
+Let your Activity theme `translucent`
 
-想要达到demo效果,需要把你的Activity背景改为透明
-
-修改`style.xml`
+In `style.xml`
 ```xml
   <style name="translucent" parent="Theme.AppCompat.Light.NoActionBar">
         <item name="android:windowBackground" >@android:color/transparent</item>
         <item name="android:windowIsTranslucent">true</item>
     </style>
 ```
-全版本共享元素实现(包括Activity转跳和拖拽共享元素)在Demo里,如有需要,参照demo思路实现即可.
 
-## 欢迎Star ,欢迎加入我的Android酒馆 :425983695
+Share transitions in all android version implementation in demo.
+
 # License
 
     Copyright 2016 androidwing1992
@@ -87,3 +85,4 @@ allprojects {
     WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
     See the License for the specific language governing permissions and
     limitations under the License.
+I

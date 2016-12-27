@@ -1,18 +1,17 @@
-# DragPhotoView [中文说明](https://github.com/githubwing/DragPhotoView/blob/master/README_CN.md)
-
+# DragPhotoView([English](https://github.com/githubwing/DragPhotoView/blob/master/README_CN.md))
 
 [![](https://jitpack.io/v/githubwing/DragPhotoView.svg)](https://jitpack.io/#githubwing/DragPhotoView)
 
-A Draggable PhotoView Like Wechat，高仿微信可拖拽返回PhotoView
+高仿微信可拖拽返回PhotoView
 
 
-### Based on [PhotoView](https://github.com/chrisbanes/PhotoView)
+### 基于 [PhotoView](https://github.com/chrisbanes/PhotoView)
 
-##[DownLoad APK](https://github.com/githubwing/DragPhotoView/raw/master/app-debug.apk)
+##[下载APK体验](https://github.com/githubwing/DragPhotoView/raw/master/app-debug.apk)
 
-## Features
-- Drag to scale image and finish activity
-
+## 特性
+- 拖拽缩放图片,并且结束Activity
+- 其他PhotoView所有特性如下:
 
 >- Out of the box zooming, using multi-touch and double-tap.
 >- Scrolling, with smooth scrolling fling.
@@ -24,9 +23,9 @@ A Draggable PhotoView Like Wechat，高仿微信可拖拽返回PhotoView
 
 
 
-# Usage
+# 使用
 
-add this on you  `build.gradle`
+修改你的  `build.gradle`文件
 
 ```gradle
 
@@ -44,32 +43,35 @@ allprojects {
 	}
     
 ```
-then use DragPhotoView as a ImageView
+
+使用法放和普通的ImageView一毛一样
+
 ```java
 
 
-	// Any implementation of ImageView can be used!
+	// 所有ImageView用法都可以	
 	DragPhotoView photoView = (DragPhotoView)findViewById(R.id.photoView);
 	photoView.setImageResource(R.drawable.ram);
-	//must set a onExitListener, it will work when exit
+	//必须添加一个onExitListener,在拖拽到底部时触发.	
 	photoView.setOnExitListener()
 	
 	photoView.setOnTapListener()
 ```
 
-## Tips
-Let your Activity theme `translucent`
+## 小贴士
 
-In `style.xml`
+想要达到demo效果,需要把你的Activity背景改为透明
+
+修改`style.xml`
 ```xml
   <style name="translucent" parent="Theme.AppCompat.Light.NoActionBar">
         <item name="android:windowBackground" >@android:color/transparent</item>
         <item name="android:windowIsTranslucent">true</item>
     </style>
 ```
+全版本共享元素实现(包括Activity转跳和拖拽共享元素)在Demo里,如有需要,参照demo思路实现即可.
 
-Share transitions in all android version implementation in demo.
-
+## 欢迎Star ,欢迎加入我的Android酒馆 :425983695
 # License
 
     Copyright 2016 androidwing1992
